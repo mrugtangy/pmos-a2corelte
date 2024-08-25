@@ -32,7 +32,7 @@ jobs:
         run: echo 'user123:pmostest' | sudo chpasswd
         
       - name: Switch to user 'user123'
-        run: su - user -c "whoami > /tmp/current_user"
+        run: su - user123 -c "whoami > /tmp/current_user"
 
       - name: Verify user identity
         run: |
