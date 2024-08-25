@@ -1,0 +1,58 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+        
+      - name: Add user 'user'
+        run: sudo useradd -m -s /bin/bash user
+        
+      - name: Set password for user 'user'
+        run: echo 'user:pmostest' | sudo chpasswd
+        
+      - name: Switch to user 'user'
+        run: su - user -c "whoami > /tmp/current_user"
+
+      - name: Verify user identity
+        run: |
+         current_user=$(cat /tmp/current_user)
+         if [ "$current_user" != "user" ]; then
+          echo "User verification failed. Expected 'user', but got '$current_user'."
+          exit 1
+         fi
+         echo "User verification succeeded. Logged in as '$current_user'."
+
+      - name: Installing pmbootstrap
+        run: git clone https://gitlab.com/postmarketOS/pmbootstrap.git
+
+      # Runs a set of commands using the runners shell
+      - name: Setting up pmbootstrap
+        run: |
+          mkdir -p ~/.local/bin
+          python3-tomli
+          apt install python3-tomli
+          ln -s "$PWD/pmbootstrap/pmbootstrap.py" ~/.local/bin/pmbootstrap
+          pmbootstrap --version
+      - name: Initializing pmbootstrap
+        run: pmbootstrap init
