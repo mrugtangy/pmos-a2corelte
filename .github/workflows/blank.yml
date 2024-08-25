@@ -25,13 +25,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
         
-      - name: Add user 'user'
-        run: sudo useradd -m -s /bin/bash user
+      - name: Add user 'user123'
+        run: sudo useradd -m -s /bin/bash user123
         
-      - name: Set password for user 'user'
-        run: echo 'user:pmostest' | sudo chpasswd
+      - name: Set password for user 'user123'
+        run: echo 'user123:pmostest' | sudo chpasswd
         
-      - name: Switch to user 'user'
+      - name: Switch to user 'user123'
         run: su - user -c "whoami > /tmp/current_user"
 
       - name: Verify user identity
