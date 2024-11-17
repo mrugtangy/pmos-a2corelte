@@ -69,6 +69,10 @@ jobs:
         echo 'pmaports_custom = none' >> config.cfg
         echo 'systemd = http://mirror.postmarketos.org/postmarketos/staging/systemd/' >> config.cfg
         echo 'systemd_custom = none' >> config.cfg
+
+    - name: Use the config
+      run: |
+        pmbootstrap config config.cfg
            
     - name: Build the image, export and release.
       run: |
