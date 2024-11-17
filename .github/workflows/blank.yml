@@ -49,8 +49,6 @@ jobs:
         ln -s "$PWD/pmbootstrap.py" ~/.local/bin/pmbootstrap
         pmbootstrap --version
 
-    - name: Creating recovery.zip from selected configs
-
     - name: Create config.cfg file
       run: |
         echo '[pmbootstrap]' >> config.cfg
