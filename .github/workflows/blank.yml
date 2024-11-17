@@ -31,50 +31,15 @@ jobs:
         ln -s "$PWD/pmbootstrap.py" ~/.local/bin/pmbootstrap
         pmbootstrap --version
 
-    - name: Create config.cfg file
-      run: |
-        echo '[pmbootstrap]' >> config.cfg
-        echo 'aports = /home/$USER/.local/var/pmbootstrap/cache_git/pmaports' >> config.cfg
-        echo 'auto_zap_misconfigured_chroots = no' >> config.cfg
-        echo 'boot_size = 256' >> config.cfg
-        echo 'build_default_device_arch = False' >> config.cfg
-        echo 'build_pkgs_on_install = True' >> config.cfg
-        echo 'ccache_size = 5G' >> config.cfg
-        echo 'device = samsung-a2corelte' >> config.cfg
-        echo 'extra_packages = none' >> config.cfg
-        echo 'extra_space = 0' >> config.cfg
-        echo 'hostname =' >> config.cfg
-        echo 'is_default_channel = False' >> config.cfg
-        echo 'jobs = 9' >> config.cfg
-        echo 'kernel = stable' >> config.cfg
-        echo 'keymap =' >> config.cfg
-        echo 'locale = en_US.UTF-8' >> config.cfg
-        echo 'qemu_redir_stdio = False' >> config.cfg
-        echo 'ssh_key_glob = ~/.ssh/*.pub' >> config.cfg
-        echo 'ssh_keys = False' >> config.cfg
-        echo 'sudo_timer = False' >> config.cfg
-        echo 'systemd = default' >> config.cfg
-        echo 'timezone = Indian/Mauritius' >> config.cfg
-        echo 'ui = ${{ github.event.inputs.interface }}' >> config.cfg
-        echo 'ui_extras = False' >> config.cfg
-        echo 'user = user' >> config.cfg
-        echo 'work = /home/$USER/.local/var/pmbootstrap' >> config.cfg
-        echo '' >> config.cfg
-        echo '[providers]' >> config.cfg
-        echo '' >> config.cfg
-        echo '[mirrors]' >> config.cfg
-        echo 'alpine = http://dl-cdn.alpinelinux.org/alpine/' >> config.cfg
-        echo 'alpine_custom = none' >> config.cfg
-        echo 'pmaports = http://mirror.postmarketos.org/postmarketos/' >> config.cfg
-        echo 'pmaports_custom = none' >> config.cfg
-        echo 'systemd = http://mirror.postmarketos.org/postmarketos/staging/systemd/' >> config.cfg
-        echo 'systemd_custom = none' >> config.cfg
-
     - name: Use the config
       run: |
         pmbootstrap init
-        pmbootstrap -c config.cfg
-        
+        echo | /home/$USER/.local/var/pmbootstrap
+        echo | edge
+        echo | samsung
+        echo | a2corelte
+        echo | user
+        echo | ${{ github.event.inputs.interface }}
            
     - name: Build the image, export and release.
       run: |
