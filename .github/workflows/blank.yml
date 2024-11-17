@@ -7,11 +7,12 @@ on:
   pull_request:
     branches:
       - main
-
-inputs:
-      interface:
-        description: 'The user interface to be used'
+  workflow_dispatch:
+    inputs:
+      interface :
+        description: "Enter the value for the command"
         required: true
+        default: "console"
 
 jobs:
   build:
@@ -73,7 +74,7 @@ jobs:
         echo 'sudo_timer = False' >> config.cfg
         echo 'systemd = default' >> config.cfg
         echo 'timezone = Indian/Mauritius' >> config.cfg
-        echo 'ui = ${{ inputs.interface }}' >> config.cfg
+        echo 'ui = ${{ github.event.inputs.custom_input }}' >> config.cfg
         echo 'ui_extras = False' >> config.cfg
         echo 'user = user' >> config.cfg
         echo 'work = /home/$USER/.local/var/pmbootstrap' >> config.cfg
