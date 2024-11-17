@@ -10,9 +10,13 @@ on:
   workflow_dispatch:
     inputs:
       interface :
-        description: "Enter the value for the command"
+        description: "User interface"
         required: true
         default: "console"
+      password :
+        description: "User password"
+        required: true
+        default: "password"
 
 jobs:
   build:
@@ -51,7 +55,7 @@ jobs:
         echo 'sudo_timer = False' >> config.cfg
         echo 'systemd = default' >> config.cfg
         echo 'timezone = Indian/Mauritius' >> config.cfg
-        echo 'ui = ${{ github.event.inputs.custom_input }}' >> config.cfg
+        echo 'ui = ${{ github.event.inputs.interface }}' >> config.cfg
         echo 'ui_extras = False' >> config.cfg
         echo 'user = user' >> config.cfg
         echo 'work = /home/$USER/.local/var/pmbootstrap' >> config.cfg
@@ -65,3 +69,10 @@ jobs:
         echo 'pmaports_custom = none' >> config.cfg
         echo 'systemd = http://mirror.postmarketos.org/postmarketos/staging/systemd/' >> config.cfg
         echo 'systemd_custom = none' >> config.cfg
+           
+    - name: Build the image, export and release.
+      run: |
+        pmbootstrap install --android-recovery-zip --recovery-install-partition=data --password ${{ github.event.inputs.password }}
+        pmbootstrap export
+        cd /tmp/postmarketOS-export/pmos
+        ls
