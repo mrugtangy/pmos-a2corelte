@@ -72,7 +72,7 @@ jobs:
 
     - name: Use the config
       run: |
-        pmbootstrap config config.cfg
+        pmbootstrap -c config.cfg
            
     - name: Build the image, export and release.
       run: |
