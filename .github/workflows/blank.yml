@@ -19,15 +19,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Create a new user
-      run: sudo useradd -m newuser
-
-    - name: Set password for the new user
-      run: echo 'newuser:password' | sudo chpasswd
-
-    - name: Log in as the new user
-      run: su - newuser -c "echo 'Logged in as newuser'"
-
     - name: Installing pmbootstrap and checking the version
       run: |
         git clone https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
