@@ -34,7 +34,7 @@ jobs:
     - name: Create config.cfg file
       run: |
         echo '[pmbootstrap]' >> config.cfg
-        echo 'aports = /home/$USER/.local/var/pmbootstrap/cache_git/pmaports' >> config.cfg
+        echo 'aports = /home/runneradmin/.local/var/pmbootstrap/cache_git/pmaports' >> config.cfg
         echo 'auto_zap_misconfigured_chroots = no' >> config.cfg
         echo 'boot_size = 256' >> config.cfg
         echo 'build_default_device_arch = False' >> config.cfg
@@ -72,7 +72,13 @@ jobs:
 
     - name: Use the config
       run: |
-        pmbootstrap -c config.cfg
+        pmbootstrap init
+        echo | /home/runneradmin/.local/var/pmbootstrap
+        echo | edge
+        echo | samsung
+        echo | a2corelte
+        echo | user
+        echo | user
            
     - name: Build the image, export and release.
       run: |
