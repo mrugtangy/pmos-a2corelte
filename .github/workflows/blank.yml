@@ -33,6 +33,7 @@ jobs:
 
     - name: Create config.cfg file
       run: |
+        cd $HOME
         echo '[pmbootstrap]' >> config.cfg
         echo 'aports = /home/runneradmin/.local/var/pmbootstrap/cache_git/pmaports' >> config.cfg
         echo 'auto_zap_misconfigured_chroots = no' >> config.cfg
@@ -72,8 +73,7 @@ jobs:
 
     - name: Use the config
       run: |
-        su
-        pmbootstrap -c config.cfg
+      pmbootstrap -c config.cfg
            
     - name: Build the image, export and release.
       run: |
